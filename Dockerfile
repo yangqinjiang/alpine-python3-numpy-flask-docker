@@ -5,6 +5,8 @@ FROM frolvlad/alpine-python3
 
 LABEL maintainer="yangqinjiang"
 
+RUN mkdir -p /var/log/gunicorn
+
 # 安装 numpy, flask
 RUN pip install --no-cache-dir --upgrade pip
 RUN apk add --no-cache \
@@ -17,6 +19,7 @@ RUN apk add --no-cache \
     \
     pip install numpy && \
     pip install flask && \
+    pip install gunicorn && \
     rm -r /root/.cache && \
     find /usr/lib/python3.*/ -name 'tests' -exec rm -r '{}' + && \
     find /usr/lib/python3.*/site-packages/ -name '*.so' -print -exec sh -c 'file "{}" | grep -q "not stripped" && strip -s "{}"' \; && \
